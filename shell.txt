@@ -1,0 +1,42 @@
+(DJANGO~2) C:\Users\Landerson\Documents\Coding Dojo\10 Python\likes_books_django>python manage.py shell
+Python 3.7.0 (v3.7.0:1bf9cc5093, Jun 27 2018, 04:59:51) [MSC v.1914 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>>
+>>> from apps.likes_books.models import *
+>>> User.objects.create(first_name="Lars", last_name="Anders", email="lars@gmail.com")
+<User: - ( id: 1, user 1st name: Lars, user last name: Anders, user email: lars@gmail.com ) ->
+>>> User.objects.create(first_name="Joe", last_name="Andrews", email="joe@gmail.com")
+<User: - ( id: 2, user 1st name: Joe, user last name: Andrews, user email: joe@gmail.com ) ->
+>>> User.objects.create(first_name="Ken", last_name="Aniston", email="ken@gmail.com")
+<User: - ( id: 3, user 1st name: Ken, user last name: Aniston, user email: ken@gmail.com ) ->
+>>> Book.objects.create(name="1st Book", desc="the first book written", uploader=User.objects.get(id=1))
+
+(DJANGO~2) C:\Users\Landerson\Documents\Coding Dojo\10 Python\likes_books_django>python manage.py shell
+Python 3.7.0 (v3.7.0:1bf9cc5093, Jun 27 2018, 04:59:51) [MSC v.1914 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from apps.likes_books.models import *
+>>> Book.objects.all()
+<QuerySet [<Book: - ( id: 1, book name: 1st Book, book description: the first book written ) ->]>
+>>> Book.objects.create(name="2nd Book", desc="the second book written", uploader=User.objects.get(id=1))
+<Book: - ( id: 2, book name: 2nd Book, book description: the second book written ) ->
+>>> Book.objects.create(name="3rd Book", desc="the third book written", uploader=User.objects.get(id=2))
+<Book: - ( id: 3, book name: 3rd Book, book description: the third book written ) ->
+>>> Book.objects.create(name="4th Book", desc="the fourth book written", uploader=User.objects.get(id=2))
+<Book: - ( id: 4, book name: 4th Book, book description: the fourth book written ) ->
+>>> Book.objects.create(name="5th Book", desc="the fifth book written", uploader=User.objects.get(id=3))
+<Book: - ( id: 5, book name: 5th Book, book description: the fifth book written ) ->
+>>> Book.objects.create(name="6th Book", desc="the sixth book written", uploader=User.objects.get(id=3))
+<Book: - ( id: 6, book name: 6th Book, book description: the sixth book written ) ->
+>>> fb = Book.objects.first()
+>>> lb = Book.objects.last()
+>>> fu = User.objects.first()
+>>> fb.liked_users.add(fu)
+>>> lb.liked_users.add(fu)
+>>> fb.save()
+>>> lb.save()
+>>> fb = Book.objects.first()
+>>> lb = Book.objects.last()
+>>> fu = Book.objects.first()
+>>> fb.liked_users.add(fu)
